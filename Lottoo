@@ -1,0 +1,67 @@
+package pl.garczynski;
+
+import java.util.Random;
+import java.util.Scanner;
+
+public class Lotto {
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+        int[] numbFromUser = new int[6];
+        int numbFromScanner = 0;
+        int counterTab = 0;
+        int counterTab1 = 0;
+        int counterDuplicate = 0;
+
+        while (counterTab != 6) {
+            System.out.println("Podaj liczbe");
+            numbFromScanner = scanner.nextInt();
+
+            if (numbFromScanner >= 1 && numbFromScanner <= 49) {
+
+                for (int i = 0; i < numbFromUser.length; i++) {
+                    if (numbFromScanner == numbFromUser[i]) {
+                        System.out.println("Podales duplikat, podaj ponownie liczbe");
+                        numbFromScanner = scanner.nextInt();
+                    }
+                }
+                numbFromUser[counterTab] = numbFromScanner;
+                counterTab++;
+
+            } else if (numbFromScanner < 1 || numbFromScanner > 49) {
+                System.out.println("Podałeś wiadomość spoza zakresu");
+            }
+        }
+
+        System.out.println("Podane liczby to: ");
+        for (int i : numbFromUser) {
+            System.out.print(i + " ");
+        }
+
+        int[] numFromRandom = new int[6];
+        Random random = new Random();
+        for (int i = 0; i < numFromRandom.length; i++) {
+            numFromRandom[i] = random.nextInt(49);
+            for (int j = 0; j < numFromRandom.length; j++) {
+                if (random.nextInt(49) == numFromRandom[j]) {
+                    numFromRandom[j] = random.nextInt(49);
+                }
+            }
+        }
+        System.out.println("\nLiczby wylosowane przez komputer to: ");
+        for (int i : numFromRandom) {
+            System.out.print(i + " ");
+        }
+        for (int i = 0; i < numbFromUser.length; i++) {
+            for (int j = 0; j < numFromRandom.length; j++) {
+                if (numbFromUser[i] == numFromRandom[j]) {
+                    counterDuplicate++;
+                }
+            }
+        }
+
+        System.out.println("\nTrafiono: " + counterDuplicate + " razy. z 6 cyfr.");
+
+    }
+}
+
